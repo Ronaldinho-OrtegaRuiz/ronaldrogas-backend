@@ -18,6 +18,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+
     @GetMapping
     public ResponseEntity<?> listAllCategories() {
         List<Category> categories = categoryService.findAll();
@@ -56,6 +57,7 @@ public class CategoryController {
     public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
         Optional<Category> categoryOptional = categoryService.findById(id);
         if (categoryOptional.isPresent()) {
+
             categoryService.deleteById(id);
             return ResponseEntity.noContent().build();
         }
