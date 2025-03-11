@@ -2,6 +2,7 @@ package com.ronaldrogas.backend.users.infrastructure.rest;
 
 import com.ronaldrogas.backend.users.application.services.UserService;
 import com.ronaldrogas.backend.users.domain.models.User;
+import com.ronaldrogas.backend.users.domain.ports.input.UserUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,31 +15,36 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserUseCase userUseCase;
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+        return ResponseEntity.ok(userUseCase.getAllUsers());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.getUserById(id));
+        return ResponseEntity.ok(userUseCase.getUserById(id));
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(userUseCase.getUserByEmail(email));
     }
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(userUseCase.createUser(user), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-        return ResponseEntity.ok(userService.updateUser(id, user));
+        return ResponseEntity.ok(userUseCase.updateUser(id, user));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+        userUseCase.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 

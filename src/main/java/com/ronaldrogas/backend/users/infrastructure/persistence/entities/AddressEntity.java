@@ -1,37 +1,36 @@
 package com.ronaldrogas.backend.users.infrastructure.persistence.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
 @Entity
 @Table(name = "addresses")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class AddressEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(nullable = false)
-    private String street;  // Para guardar "Cra 23 #45"
-    
+    private String street;
+
     @Column(nullable = false)
     private String city;
-    
+
     @Column(nullable = false)
-    private String department;  // Cambiado de state a department
-    
+    private String department;
+
     @Column(nullable = false)
-    private String country = "Colombia";  // Quitamos el final pero mantenemos el valor por defecto
-    
+    private String country;
+
     @Column
     private String reference;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
-} 
+}

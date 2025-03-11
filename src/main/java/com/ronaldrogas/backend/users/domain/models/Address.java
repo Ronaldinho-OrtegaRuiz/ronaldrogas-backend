@@ -1,10 +1,9 @@
 package com.ronaldrogas.backend.users.domain.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
@@ -12,6 +11,7 @@ public class Address {
     private String street;
     private String city;
     private String department;
-    private String country;
+    private String country; // = "Colombia";
     private String reference;
-} 
+    private User user;
+}
